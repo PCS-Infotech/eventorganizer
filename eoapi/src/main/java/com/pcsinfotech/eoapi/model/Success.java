@@ -2,7 +2,7 @@ package com.pcsinfotech.eoapi.model;
 
 public class Success {
 	
-	private boolean success = false;
+	private boolean success = true;
 	private String errorCode = null;
 	private String errorMessage = null;
 	
