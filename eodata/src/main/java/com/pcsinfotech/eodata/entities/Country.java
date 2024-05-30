@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "countries_catalog")
+@Table(name = "countries")
 public class Country {
 	
 	@Id
@@ -21,14 +21,13 @@ public class Country {
     @Column(name = "country", length = 30, nullable = false)
     private String country;
 	
-    @Column(name = "iso_code", length = 5, nullable = false)
+    @Column(name = "isocode", length = 5, nullable = false)
 	private String isoCode;
     
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-	private  CountryStatus status;
+    @Column(name = "softdeleted", nullable = false)
+    private  Integer softDeleted;
     
-    @Column(name = "version_number", nullable = false)
+    @Column(name = "versionnumber", nullable = false)
     private  Integer version;
     
     public Integer getId() {
@@ -55,12 +54,19 @@ public class Country {
     	this.isoCode = c;
     }
     
-    public CountryStatus getStatus() {
-    	return this.status;
+    public int getSoftDeleted() {
+    	return this.softDeleted;
     }
     
-    public void setStatus(CountryStatus s) {
-    	this.status = s;
+    public void setSoftDeleted(int s) {
+    	if (s == 0)
+    	{
+    		this.softDeleted = 0;
+    	}
+    	else
+    	{
+    		this.softDeleted = 1;
+    	}
     }
     
     public Integer getVersion() {

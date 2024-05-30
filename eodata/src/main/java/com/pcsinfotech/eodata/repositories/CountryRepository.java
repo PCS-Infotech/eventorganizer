@@ -14,10 +14,10 @@ import com.pcsinfotech.eodata.entities.Country;
 public interface CountryRepository extends JpaRepository<Country, Integer> {
 	
 	@Cacheable("IsoCodes")
-	@Query("select u from Country u")
+	@Query("select u from Country u where u.softDeleted = 0")
     List<Country> getIsoCodes();
 	
-	@Query("select u from Country u")
+	@Query("select u from Country u where u.softDeleted = 0")
     List<Country> getCountries();
 	
 }

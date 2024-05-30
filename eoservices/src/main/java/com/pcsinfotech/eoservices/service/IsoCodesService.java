@@ -24,15 +24,10 @@ public class IsoCodesService {
 		List<Country> dbIsoCodes = countryRepository.getIsoCodes();
 		if (!CollectionUtils.isEmpty(dbIsoCodes)) {
 			dbIsoCodes.stream().forEach(t -> {
-				if (t.getStatus() == CountryStatus.ACTIVE) {
 					IsoCode code = new IsoCode();
 					code.setCountry(t.getCountry());
 					code.setIsoCode(t.getIsoCode());
 					isoCodes.add(code);
-				}
-				else {
-					//Do Nothing
-				}
 			});
 		}
 		else {
