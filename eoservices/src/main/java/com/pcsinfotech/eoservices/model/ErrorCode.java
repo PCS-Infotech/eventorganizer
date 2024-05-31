@@ -13,9 +13,9 @@ public enum ErrorCode{
 	PCS_8("PCS-8", "First Name is required"),
 	PCS_9("PCS-9", "Invalid Auth Token"),
 	PCS_10("PCS-10", "Auth Token is Mandatory"),
-	PCS_11("PCS_11", "Country is required"),
-	PCS_12("PCS_12", "ISO Code is required"),
-	PCS_13("PCS_13", "ISO Code does not exist in the Country");
+	PCS_11("PCS-11", "Country is required"),
+	PCS_12("PCS-12", "ISO Code is required"),
+	PCS_13("PCS-13", "ISO Code does not exist in the Country");
 
 	private String errorCode;
 	
