@@ -1,4 +1,4 @@
-package com.pcsinfotech.eoapi.model;
+package com.pcsinfotech.eoapi.v1.model;
 
 import java.util.List;
 

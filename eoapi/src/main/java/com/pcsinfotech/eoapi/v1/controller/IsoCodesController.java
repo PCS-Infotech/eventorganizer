@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pcsinfotech.eoapi.model.IsoCode;
-import com.pcsinfotech.eoapi.model.IsoCodesResponse;
+import com.pcsinfotech.eoapi.v1.model.*;
 import com.pcsinfotech.eoservices.service.*;
 
 @RestController
@@ -33,7 +32,7 @@ public class IsoCodesController {
 		response.setErrorMessage(null);
 		
 		List<com.pcsinfotech.eoservices.model.IsoCode> isoCodesSM 
-			= isoCodesService.getActiveIsoCodes();
+			= isoCodesService.getIsoCodes();
 		
 		// Build the IsoCode Collection for the response object 
 		List<IsoCode> isoCodes = new ArrayList<IsoCode>();
