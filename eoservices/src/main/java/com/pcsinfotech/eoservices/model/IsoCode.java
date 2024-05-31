@@ -1,5 +1,7 @@
 package com.pcsinfotech.eoservices.model;
 
+import org.springframework.util.StringUtils;
+
 public class IsoCode {
 	
 	private String country;
@@ -14,20 +16,21 @@ public class IsoCode {
 	}
 	
 	public void setCountry(String countryValue) {
-		if (countryValue == null || countryValue.isBlank() || countryValue.isEmpty()) {
-			this.country = null;
+		if (StringUtils.hasText(countryValue)) {
+			this.country = countryValue.toUpperCase();
 		}
 		else {
-			this.country = countryValue.toUpperCase();
+			this.country = null;
 		}
 	}
 	
 	public void setIsoCode(String isoCodeValue) {
-		if (isoCodeValue == null || isoCodeValue.isBlank() || isoCodeValue.isEmpty()) {
-			this.isoCode = null;
+		
+		if (StringUtils.hasText(isoCodeValue)) {
+			this.isoCode = isoCodeValue;
 		}
 		else {
-			this.isoCode = isoCodeValue;
+			this.isoCode = null;
 		}
 	}
 
