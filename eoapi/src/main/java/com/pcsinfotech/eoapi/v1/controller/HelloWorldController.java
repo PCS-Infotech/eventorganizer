@@ -1,4 +1,4 @@
-package com.pcsinfotech.eoapi.controller;
+package com.pcsinfotech.eoapi.v1.controller;
 
 import java.util.List;
 
