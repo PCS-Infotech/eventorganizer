@@ -26,6 +26,7 @@ public class IsoCodesService {
 		if (!CollectionUtils.isEmpty(dbIsoCodes)) {
 			dbIsoCodes.stream().forEach(t -> {
 					IsoCode code = new IsoCode();
+					code.setCountryDBId(t.getId());
 					code.setCountry(t.getCountry());
 					code.setIsoCode(t.getIsoCode());
 					isoCodes.add(code);
@@ -44,6 +45,7 @@ public class IsoCodesService {
 			if (!CollectionUtils.isEmpty(dbIsoCodes)) {
 				dbIsoCodes.stream().forEach(t -> {
 						IsoCode code = new IsoCode();
+						code.setCountryDBId(t.getId());
 						code.setCountry(t.getCountry());
 						code.setIsoCode(t.getIsoCode());
 						isoCodes.add(code);

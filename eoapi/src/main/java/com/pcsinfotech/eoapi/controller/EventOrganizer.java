@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @ImportResource("classpath:spring-eoapi.xml")
-public class HelloWorld {
+public class EventOrganizer {
 	
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(HelloWorld.class, args);
+		ConfigurableApplicationContext run = SpringApplication.run(EventOrganizer.class, args);
 	}
 
 }

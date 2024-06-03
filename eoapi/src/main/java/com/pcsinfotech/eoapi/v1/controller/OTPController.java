@@ -23,24 +23,9 @@ public class OTPController {
 	
 	@PostMapping(value = "/requestOTP", produces = "application/json")
 	public OTPRequestResponse requestOTP(@RequestBody OTPRequest otpRequest) {
-		String reqCountry = otpRequest.getCountry();
-		String reqMobile = otpRequest.getMobile();
-		String reqIsoCode = otpRequest.getIsoCode();
-		
 		OTPRequestResponse resp;
-		
-		try {
-			OTP sendOtpResp = otpService.sendOTP(reqCountry, reqIsoCode, reqMobile);
-			resp = mapper.otpToOTPRequestResponse(sendOtpResp);
-			return resp;
-		}
-		catch (Exception e) {
-			resp =  new OTPRequestResponse();
-			resp.setSuccess(false);
-			resp.setErrorCode(ErrorCode.PCS_3.getErrorCode());
-			resp.setErrorMessage(ErrorCode.PCS_3.getErrorMessage());
-			resp.setOtpValidTimeoutInSecs(0);
-		}
+		OTP sendOtpResp = otpService.sendOTP(otpRequest.getCountry(), otpRequest.getIsoCode(), otpRequest.getMobile());
+		resp = mapper.otpToOTPRequestResponse(sendOtpResp);
 		return resp;
 	}
 
