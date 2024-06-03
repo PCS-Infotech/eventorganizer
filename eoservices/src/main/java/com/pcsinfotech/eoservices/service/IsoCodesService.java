@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.pcsinfotech.eoservices.model.ErrorCode;
 import com.pcsinfotech.eoservices.model.IsoCode;
+import com.pcsinfotech.eoservices.model.IsoCodesList;
 import com.pcsinfotech.eodata.entities.*;
 import com.pcsinfotech.eodata.repositories.*;
 
@@ -19,9 +21,7 @@ public class IsoCodesService {
 	private CountryRepository countryRepository;
 	
 	public List<IsoCode> getIsoCodes() {
-		
 		List<IsoCode> isoCodes = new ArrayList<IsoCode>();
-		
 		List<Country> dbIsoCodes = countryRepository.getIsoCodes();
 		if (!CollectionUtils.isEmpty(dbIsoCodes)) {
 			dbIsoCodes.stream().forEach(t -> {
@@ -34,10 +34,11 @@ public class IsoCodesService {
 		return isoCodes;
 	}
 	
-	
-	
-	public List<IsoCode> getIsoCodesByCountryAndIsoCode(String country, String isoCode) {
+	public IsoCodesList getIsoCodesByCountryAndIsoCode(String country, String isoCode) {	
+		IsoCodesList isoCodesList = new IsoCodesList();
 		List<IsoCode> isoCodes = new ArrayList<IsoCode>();
+		isoCodesList.setList(isoCodes);
+		
 		if (StringUtils.hasText(country) && StringUtils.hasText(isoCode)) { 
 			List<Country> dbIsoCodes = countryRepository.findCountriesByCountryAndIsoCode(country, isoCode);
 			if (!CollectionUtils.isEmpty(dbIsoCodes)) {
@@ -46,10 +47,27 @@ public class IsoCodesService {
 						code.setCountry(t.getCountry());
 						code.setIsoCode(t.getIsoCode());
 						isoCodes.add(code);
+				
 				});
 			}
+			else {
+				isoCodesList.setError(ErrorCode.PCS_13);
+				return isoCodesList;
+			}
 		}
-		return isoCodes;
+		else {
+			//Validate country in request is populated. 
+			if (!StringUtils.hasText(country)) {
+				isoCodesList.setError(ErrorCode.PCS_11);
+				return isoCodesList;
+			}
+			
+			//Validate ISO Code in request is populated
+			if (!StringUtils.hasText(isoCode)) {
+				isoCodesList.setError(ErrorCode.PCS_12);
+				return isoCodesList;
+			}
+		}
+		return isoCodesList;
 	}
-
 }
