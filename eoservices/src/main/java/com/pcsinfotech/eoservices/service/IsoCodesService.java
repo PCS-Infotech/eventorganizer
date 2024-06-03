@@ -31,10 +31,6 @@ public class IsoCodesService {
 					isoCodes.add(code);
 			});
 		}
-		else {
-			//Do Nothing
-		}
-	
 		return isoCodes;
 	}
 	
