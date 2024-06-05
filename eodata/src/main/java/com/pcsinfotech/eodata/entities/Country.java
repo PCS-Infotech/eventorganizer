@@ -24,10 +24,10 @@ public class Country {
 	private String isoCode;
     
     @Column(name = "softdeleted", nullable = false)
-    private  Integer softDeleted;
+    private  Integer softDeleted = 0;
     
     @Column(name = "versionnumber", nullable = false)
-    private  Integer version;
+    private  Integer version = 1;
     
     public Long getId() {
     	return this.id;
@@ -80,16 +80,6 @@ public class Country {
     	else
     	{
     		this.version = ver;
-    	}
-    }
-    
-    @PrePersist
-    public void prePersist() {
-    	if (this.softDeleted == null) {
-    		this.setSoftDeleted(0); 
-    	}
-    	if (this.version == null) {
-    		this.setVersion(1);
     	}
     }
 }
