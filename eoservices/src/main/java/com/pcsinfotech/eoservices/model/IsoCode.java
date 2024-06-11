@@ -4,8 +4,13 @@ import org.springframework.util.StringUtils;
 
 public class IsoCode {
 	
+	private Long countryDBId;
 	private String country;
 	private String isoCode;
+	
+	public Long getCountryDBId() {
+		return this.countryDBId;
+	}
 	
 	public String getCountry() {
 		return this.country;
@@ -13,6 +18,10 @@ public class IsoCode {
 	
 	public String getIsoCode() {
 		return this.isoCode;
+	}
+	
+	public void setCountryDBId(Long value) {
+		this.countryDBId = value;
 	}
 	
 	public void setCountry(String countryValue) {

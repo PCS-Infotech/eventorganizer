@@ -9,19 +9,25 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "countries")
-public class Country {
+@Table(name = "otpcodes")
+public class OtpCode {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "country", length = 30, nullable = false)
-    private String country;
-	
-    @Column(name = "isocode", length = 5, nullable = false)
-	private String isoCode;
+    @Column(name = "countryId", nullable = false)
+    private Long countryId;
+    
+    @Column(name = "mobile", nullable = false)
+    private String mobile;
+    
+    @Column(name = "otpcode")
+    private String otpCode;
+    
+    @Column(name = "expirytimeinsecs", nullable = false)
+    private Integer expiryTimeInSecs;
     
     @Column(name = "softdeleted", nullable = false)
     private  Integer softDeleted = 0;
@@ -37,20 +43,41 @@ public class Country {
     	this.id = id;
     }
     
-    public String getCountry() {
-    	return this.country;
+    public Long getCountryId() {
+    	return this.countryId;
     }
     
-    public void setCountry(String c) {
-    	this.country = c;
+    public void setCountryId(Long c) {
+    	this.countryId = c;
     }
     
-    public String getIsoCode() {
-    	return this.isoCode;
+    public String getMobile() {
+    	return this.mobile;
     }
     
-    public void setIsoCode(String c) {
-    	this.isoCode = c;
+    public void setMobile(String c) {
+    	this.mobile = c;
+    }
+    
+    public String getOtpCode() {
+    	return this.otpCode;
+    }
+    
+    public void setOtpCode(String c) {
+    	this.otpCode = c;
+    }
+    
+    public Integer getExpiryTimeInSecs() {
+    	return this.expiryTimeInSecs;
+    }
+    
+    public void setExpiryTimeInSecs(Integer c) {
+    	if (c == null) {
+    		this.expiryTimeInSecs = 0;
+    	}
+    	else {
+    		this.expiryTimeInSecs = c;
+    	}
     }
     
     public int getSoftDeleted() {

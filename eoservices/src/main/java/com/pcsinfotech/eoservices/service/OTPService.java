@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.pcsinfotech.eodata.entities.OtpCode;
+import com.pcsinfotech.eodata.repositories.OtpCodeRepository;
 import com.pcsinfotech.eoservices.model.ErrorCode;
 import com.pcsinfotech.eoservices.model.IsoCodesList;
 import com.pcsinfotech.eoservices.model.OTP;
@@ -14,8 +16,11 @@ public class OTPService {
 	@Autowired
 	private IsoCodesService isoCodesService;
 	
+	@Autowired
+	private OtpCodeRepository otpCodeRepo;
+	
 	public OTP sendOTP(String country, String isoCode, String mobile) {
-		
+		final int defExpiration = 60;
 		OTP returnValue = new OTP();
 		returnValue.setOtpExpirationInSecs(0);
 		returnValue.setError(ErrorCode.PCS_0);
@@ -32,13 +37,30 @@ public class OTPService {
 			returnValue.setError(isoCodesList.getError());
 			return returnValue;
 		}
+		else {
+			
+			try {
+				//Determine OTP
+				String otp = mobile.substring(0, 5);
+				//Insert OTP into the database
+				OtpCode otpCodeDB = new OtpCode();
+				otpCodeDB.setCountryId(isoCodesList.getList().get(0).getCountryDBId());
+				otpCodeDB.setMobile(mobile);
+				otpCodeDB.setOtpCode(otp);
+				otpCodeDB.setExpiryTimeInSecs(defExpiration);
+				otpCodeRepo.save(otpCodeDB);
+				//return value
+				returnValue.setOtp(otp);
+				returnValue.setOtpExpirationInSecs(defExpiration);
+				returnValue.setError(null);
+				return returnValue;
+			}
+			catch (Exception e) {
+				returnValue.setError(ErrorCode.PCS_3);
+				return returnValue;
+			}
+		}
 		
-		String otp = mobile.substring(0, 5);
-		//To do: Insert OTP into the database
 		
-		OTP response = new OTP();
-		response.setOtp(otp);
-		response.setOtpExpirationInSecs(60);
-		return response;
 	}
 }
