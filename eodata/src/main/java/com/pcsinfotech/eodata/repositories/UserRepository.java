@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select u from User u")
     List<User> getUsers();
+	
+	@Query("select u from User u where u.firstName= ?1")
+    List<User> getUsersByFirstName(String firstName);
 }

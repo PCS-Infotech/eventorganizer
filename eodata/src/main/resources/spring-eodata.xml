@@ -36,7 +36,7 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
                 <prop key="jakarta.persistence.sharedCache.mode">ENABLE_SELECTIVE</prop>
                 <prop key="hibernate.cache.use_query_cache">false</prop>
                 <prop key="hibernate.javax.cache.missing_cache_strategy">create</prop>
