@@ -3,6 +3,7 @@ package com.pcsinfotech.eoapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,13 @@ public class HelloWorldController {
 	
 	@GetMapping(value = "/User/{firstName}", produces = "application/json")
 	public List<User> getUsersByFirstName(@PathVariable String firstName) {
-		return testService.getUsersByFirstName(firstName);
+		List<User> users = testService.getUsersByFirstName(firstName);
+		if(CollectionUtils.isEmpty(users)) {
+			System.out.println("List is empty");
+		}else {
+			System.out.println("List is not empty");
+		}
+		return users;
 	}
 	
 	@PostMapping(value = "/User", produces = "application/json")
