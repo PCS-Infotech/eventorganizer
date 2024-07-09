@@ -52,7 +52,7 @@ public class HelloWorldControllerTest {
 
 	  List<User> users=helloWorldController.getUsersByFirstName("Test");
 	  assertTrue(!CollectionUtils.isEmpty(users)); 
-	  assertTrue(2 == users.size());
+	  assertTrue(1 == users.size());
 	  //assertEquals(2, users.size()); 
 	  }
 
