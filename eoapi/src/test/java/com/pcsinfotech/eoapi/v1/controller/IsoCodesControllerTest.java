@@ -39,22 +39,22 @@ public class IsoCodesControllerTest {
         IsoCode isoCode1 = new IsoCode();
         isoCode1.setCountryDBId(1L);
         isoCode1.setCountry("USA");
-        isoCode1.setIsoCode("US");
+        isoCode1.setIsoCode("+1");
 
         IsoCode isoCode2 = new IsoCode();
         isoCode2.setCountryDBId(2L);
         isoCode2.setCountry("INDIA");
-        isoCode2.setIsoCode("IND");
+        isoCode2.setIsoCode("+91");
 
         List<IsoCode> isoCodesSM = Arrays.asList(isoCode1, isoCode2);
 
         com.pcsinfotech.eoapi.v1.model.IsoCode apiIsoCode1 = new com.pcsinfotech.eoapi.v1.model.IsoCode();
         apiIsoCode1.setCountry("USA");
-        apiIsoCode1.setIsoCode("US");
+        apiIsoCode1.setIsoCode("+1");
 
         com.pcsinfotech.eoapi.v1.model.IsoCode apiIsoCode2 = new com.pcsinfotech.eoapi.v1.model.IsoCode();
         apiIsoCode2.setCountry("INDIA");
-        apiIsoCode2.setIsoCode("IND");
+        apiIsoCode2.setIsoCode("+91");
 
         List<com.pcsinfotech.eoapi.v1.model.IsoCode> isoCodes = Arrays.asList(apiIsoCode1, apiIsoCode2);
 
@@ -69,9 +69,9 @@ public class IsoCodesControllerTest {
         assertNotNull(response);
         assertEquals(2, response.getIsoCodes().size());
         assertEquals("USA", response.getIsoCodes().get(0).getCountry());
-        assertEquals("US", response.getIsoCodes().get(0).getIsoCode());
+        assertEquals("+1", response.getIsoCodes().get(0).getIsoCode());
         assertEquals("INDIA", response.getIsoCodes().get(1).getCountry());
-        assertEquals("IND", response.getIsoCodes().get(1).getIsoCode());
+        assertEquals("+91", response.getIsoCodes().get(1).getIsoCode());
     }
 }
 

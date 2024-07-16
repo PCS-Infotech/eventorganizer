@@ -36,7 +36,7 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Plugin management -->
+
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
@@ -45,7 +45,6 @@
             </plugins>
         </pluginManagement>
         
-        <!-- Plugin execution -->
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>

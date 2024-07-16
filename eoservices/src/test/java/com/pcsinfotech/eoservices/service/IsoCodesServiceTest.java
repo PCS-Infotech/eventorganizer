@@ -37,12 +37,12 @@ public class IsoCodesServiceTest {
         Country country1 = new Country();
         country1.setId(1L);
         country1.setCountry("USA");
-        country1.setIsoCode("US");
+        country1.setIsoCode("+1");
 
         Country country2 = new Country();
         country2.setId(2L);
         country2.setCountry("INDIA");
-        country2.setIsoCode("IND");
+        country2.setIsoCode("+91");
 
         when(countryRepository.getIsoCodes()).thenReturn(Arrays.asList(country1, country2));
 
@@ -51,9 +51,9 @@ public class IsoCodesServiceTest {
         assertNotNull(isoCodes);
         assertEquals(2, isoCodes.size());
         assertEquals("USA", isoCodes.get(0).getCountry());
-        assertEquals("US", isoCodes.get(0).getIsoCode());
+        assertEquals("+1", isoCodes.get(0).getIsoCode());
         assertEquals("INDIA", isoCodes.get(1).getCountry());
-        assertEquals("IND", isoCodes.get(1).getIsoCode());
+        assertEquals("+91", isoCodes.get(1).getIsoCode());
     }
 
     @Test
@@ -61,22 +61,22 @@ public class IsoCodesServiceTest {
         Country country = new Country();
         country.setId(1L);
         country.setCountry("USA");
-        country.setIsoCode("US");
+        country.setIsoCode("+1");
 
-        when(countryRepository.findCountriesByCountryAndIsoCode("USA", "US")).thenReturn(Collections.singletonList(country));
+        when(countryRepository.findCountriesByCountryAndIsoCode("USA", "+1")).thenReturn(Collections.singletonList(country));
 
-        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "US");
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "+1");
 
         assertNotNull(isoCodesList);
         assertNull(isoCodesList.getError());
         assertEquals(1, isoCodesList.getList().size());
         assertEquals("USA", isoCodesList.getList().get(0).getCountry());
-        assertEquals("US", isoCodesList.getList().get(0).getIsoCode());
+        assertEquals("+1", isoCodesList.getList().get(0).getIsoCode());
     }
 
     @Test
     public void testGetIsoCodesByCountryAndIsoCode_withEmptyCountry() {
-        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("", "US");
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("", "+1");
 
         assertNotNull(isoCodesList);
         assertEquals(ErrorCode.PCS_11, isoCodesList.getError());
@@ -92,9 +92,9 @@ public class IsoCodesServiceTest {
 
     @Test
     public void testGetIsoCodesByCountryAndIsoCode_withNoMatches() {
-        when(countryRepository.findCountriesByCountryAndIsoCode("USA", "US")).thenReturn(Collections.emptyList());
+        when(countryRepository.findCountriesByCountryAndIsoCode("USA", "+1")).thenReturn(Collections.emptyList());
 
-        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "US");
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "+1");
 
         assertNotNull(isoCodesList);
         assertEquals(ErrorCode.PCS_13, isoCodesList.getError());
