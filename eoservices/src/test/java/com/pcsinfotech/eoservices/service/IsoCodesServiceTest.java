@@ -1,6 +1,7 @@
 package com.pcsinfotech.eoservices.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -57,6 +58,16 @@ public class IsoCodesServiceTest {
     }
 
     @Test
+    public void testGetIsoCodes_EmptyList() {
+        when(countryRepository.getIsoCodes()).thenReturn(Collections.emptyList());
+
+        List<IsoCode> isoCodes = isoCodesService.getIsoCodes();
+
+        assertNotNull(isoCodes);
+        assertTrue(isoCodes.isEmpty());
+    }
+
+    @Test
     public void testGetIsoCodesByCountryAndIsoCode() {
         Country country = new Country();
         country.setId(1L);
@@ -81,10 +92,36 @@ public class IsoCodesServiceTest {
         assertNotNull(isoCodesList);
         assertEquals(ErrorCode.PCS_11, isoCodesList.getError());
     }
+    
+    @Test
+    public void testGetIsoCodesByCountryAndIsoCode_ValidInputs() {
+        Country country = new Country();
+        country.setId(1L);
+        country.setCountry("USA");
+        country.setIsoCode("+1");
+
+        when(countryRepository.findCountriesByCountryAndIsoCode("USA", "+1")).thenReturn(Collections.singletonList(country));
+
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "+1");
+
+        assertNotNull(isoCodesList);
+        assertNull(isoCodesList.getError());
+        assertEquals(1, isoCodesList.getList().size());
+        assertEquals("USA", isoCodesList.getList().get(0).getCountry());
+        assertEquals("+1", isoCodesList.getList().get(0).getIsoCode());
+    }
 
     @Test
     public void testGetIsoCodesByCountryAndIsoCode_withEmptyIsoCode() {
         IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "");
+
+        assertNotNull(isoCodesList);
+        assertEquals(ErrorCode.PCS_12, isoCodesList.getError());
+    }
+
+    @Test
+    public void testGetIsoCodesByCountryAndIsoCode_withBlankIsoCode() {
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", "   ");
 
         assertNotNull(isoCodesList);
         assertEquals(ErrorCode.PCS_12, isoCodesList.getError());
@@ -99,8 +136,37 @@ public class IsoCodesServiceTest {
         assertNotNull(isoCodesList);
         assertEquals(ErrorCode.PCS_13, isoCodesList.getError());
     }
+
+    @Test
+    public void testGetIsoCodesByCountryAndIsoCode_NullIsoCode() {
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("USA", null);
+
+        assertNotNull(isoCodesList);
+        assertEquals(ErrorCode.PCS_12, isoCodesList.getError());
+    }
+
+    @Test
+    public void testGetIsoCodesByCountryAndIsoCode_NullCountry() {
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode(null, "+1");
+
+        assertNotNull(isoCodesList);
+        assertEquals(ErrorCode.PCS_11, isoCodesList.getError());
+    }
+
+    @Test
+    public void testGetIsoCodesByCountryAndIsoCode_NullCountryAndIsoCode() {
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode(null, null);
+
+        assertNotNull(isoCodesList);
+        assertEquals(ErrorCode.PCS_11, isoCodesList.getError());
+    }
+
+    @Test
+    public void testGetIsoCodesByCountryAndIsoCode_EmptyCountryAndIsoCode() {
+        IsoCodesList isoCodesList = isoCodesService.getIsoCodesByCountryAndIsoCode("", "");
+
+        assertNotNull(isoCodesList);
+        assertEquals(ErrorCode.PCS_11, isoCodesList.getError());
+    }
 }
-
-
-
-
+ 
