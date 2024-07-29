@@ -2,6 +2,7 @@ package com.pcsinfotech.eoapi.v1.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;

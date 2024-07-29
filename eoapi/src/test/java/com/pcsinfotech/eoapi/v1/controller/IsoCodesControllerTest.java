@@ -1,6 +1,8 @@
 package com.pcsinfotech.eoapi.v1.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.apache.logging.log4j.Logger;
+
 
 import static org.mockito.Mockito.*;
 
@@ -26,6 +28,9 @@ public class IsoCodesControllerTest {
     @Mock
     private ServiceToControllerMapper mapper;
 
+    @Mock
+    private Logger logger;
+    
     @InjectMocks
     private IsoCodesController isoCodesController;
 
