@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -53,7 +52,7 @@ public class Country {
     	this.isoCode = c;
     }
     
-    public int getSoftDeleted() {
+    public Integer getSoftDeleted() {
     	return this.softDeleted;
     }
     
