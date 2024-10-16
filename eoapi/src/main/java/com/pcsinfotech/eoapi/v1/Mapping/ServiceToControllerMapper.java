@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.pcsinfotech.eoapi.v1.model.IsoCode;
+import com.pcsinfotech.eoapi.v1.model.CreateCustomerResponse;
 import com.pcsinfotech.eoapi.v1.model.OTPRequestResponse;
+import com.pcsinfotech.eoservices.model.Customer;
+import com.pcsinfotech.eoservices.model.ErrorCode;
 import com.pcsinfotech.eoservices.model.OTP;
 
 @Service
@@ -16,6 +18,7 @@ public class ServiceToControllerMapper {
 		
 		OTPRequestResponse resp = new OTPRequestResponse();
 		resp.setOtpValidTimeoutInSecs(otp.getOtpExpirationInSecs());
+		
 		//Check for Errors
 		if (otp.getError() != null) {
 			resp.setSuccess(false);
@@ -41,5 +44,28 @@ public class ServiceToControllerMapper {
 		}
 		return isoCodes;
 	}
+	
+	public com.pcsinfotech.eoservices.model.Customer CustomerRequestToCustomer 
+					(com.pcsinfotech.eoapi.v1.model.CustomerRequest customerRequest) {
+		Customer customer = new Customer();
+		customer.setFirstName(customerRequest.getFirstName());
+		customer.setLastName(customerRequest.getLastName());
+		customer.setEventType(customerRequest.getEventType());
+		customer.setMobile(customerRequest.getMobile());
+		customer.setIsoCode(customerRequest.getIsoCode());
+		return customer;
+	}
 
+	public CreateCustomerResponse CustomerToCreateCustomerResponse(Customer customer) {
+		CreateCustomerResponse resp = new CreateCustomerResponse ();
+		resp.setCustomerId(customer.getCustomerId());
+		if (customer.getError() != null) {
+			resp.setErrorCode(customer.getError().getErrorCode());
+			resp.setErrorMessage(customer.getError().getErrorMessage());
+			resp.setSuccess(false);
+		} else {
+			resp.setSuccess(true);
+		}
+		return resp;
+	}
 }

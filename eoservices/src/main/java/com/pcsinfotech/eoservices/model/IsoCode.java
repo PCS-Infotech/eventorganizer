@@ -3,7 +3,7 @@ package com.pcsinfotech.eoservices.model;
 import org.springframework.util.StringUtils;
 
 public class IsoCode {
-	
+	   
 	private Long countryDBId;
 	private String country;
 	private String isoCode;
@@ -22,7 +22,18 @@ public class IsoCode {
 	
 	public void setCountryDBId(Long value) {
 		this.countryDBId = value;
+	
 	}
+	
+	 private ErrorCode error;
+		
+		public ErrorCode getError() {
+			return this.error;
+		}
+
+		public void setError(ErrorCode error) {
+			this.error = error;
+		}
 	
 	public void setCountry(String countryValue) {
 		if (StringUtils.hasText(countryValue)) {
@@ -42,5 +53,7 @@ public class IsoCode {
 			this.isoCode = null;
 		}
 	}
+
+	
 
 }

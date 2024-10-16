@@ -23,5 +23,9 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
 	
 	@Query("select u from Country u where u.softDeleted = 0 and u.country = :country and u.isoCode = :isoCode")
     List<Country> findCountriesByCountryAndIsoCode(@Param("country") String country, @Param("isoCode") String isoCode);
+	
+	@Query("select u from Country u where u.softDeleted = 0 and u.isoCode = :isoCode")
+    List<Country> findCountriesByIsoCode(@Param("isoCode") String isoCode);
+
 
 }
