@@ -10,18 +10,20 @@ import org.springframework.stereotype.Repository;
 
 import com.pcsinfotech.eodata.entities.Country;
 
-
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
-	
+
 	@Cacheable("IsoCodes")
 	@Query("select u from Country u where u.softDeleted = 0")
-    List<Country> getIsoCodes();
-	
+	List<Country> getIsoCodes();
+
 	@Query("select u from Country u where u.softDeleted = 0")
-    List<Country> getCountries();
-	
+	List<Country> getCountries();
+
 	@Query("select u from Country u where u.softDeleted = 0 and u.country = :country and u.isoCode = :isoCode")
-    List<Country> findCountriesByCountryAndIsoCode(@Param("country") String country, @Param("isoCode") String isoCode);
+	List<Country> findCountriesByCountryAndIsoCode(@Param("country") String country, @Param("isoCode") String isoCode);
+
+	@Query("select u from Country u where u.softDeleted = 0 and u.isoCode = :isoCode")
+	List<Country> findCountriesByIsoCode(@Param("isoCode") String isoCode);
 
 }
